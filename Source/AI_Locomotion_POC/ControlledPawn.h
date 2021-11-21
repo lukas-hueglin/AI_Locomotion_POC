@@ -7,6 +7,7 @@
 #include "Components/ArrowComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Containers/Array.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -45,6 +46,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "MucleContraction")
 	float muscleActivation;
 
+	// Bone names
+	UPROPERTY(BlueprintReadWrite, Category = "MucleContraction")
+	TArray<FName> BoneNames;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -71,4 +76,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Called to move skeleton
+	void MoveSkeleton(const TArray<float>& Activation, float strength);
+
+	// Called to get joint Locations
+	void GetJointLocations(TArray<float>& JointLocations, TArray<FName> BoneList);
 };
